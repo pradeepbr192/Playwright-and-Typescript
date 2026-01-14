@@ -20,7 +20,7 @@ test('Checkbox test',async({page})=>{
      }
         console.log(`All checkboxes are checked successfully.`);
     })
-    test('Drop down', async({page})=>{
+    test.only('Drop down', async({page})=>{
 
     await page.goto('https://www.tutorialspoint.com/selenium/practice/selenium_automation_practice.php');
 
@@ -29,5 +29,21 @@ test('Checkbox test',async({page})=>{
         const count = await options.count();
     console.log(count);
     
+    for (let i = 0; i < count; i++) {
+        const optionText = await options.nth(i).textContent();
+        console.log(`Option ${i + 1}: ${optionText}`);
+    }
+
+    let israjasthanselected = false;
+
+    for (let i = 0; i < count; i++) {
+        const optionText = await options.nth(i).textContent();
+        if (optionText?.trim() === 'Rajasthan') {
+            await statesdrpdown.selectOption({ label: 'Rajasthan' });
+            israjasthanselected = true;
+            console.log('Rajasthan option is selected.');
+            break;
+        }
+    }
 })
     
